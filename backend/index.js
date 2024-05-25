@@ -54,6 +54,17 @@ app.post('/products', async (req, res) => {
     }
 });
 
+// Ruta para obtener todos los productos
+app.get('/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (error) {
+        console.error('Error al obtener productos:', error);
+        res.status(500).send('Error al obtener productos');
+    }
+});
+
 
 // Ruta para agregar un nuevo usuario
 app.post('/register', async (req, res) => {
