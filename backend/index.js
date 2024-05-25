@@ -39,15 +39,23 @@ const Cart = mongoose.model('Cart', new mongoose.Schema({
 }));
 
 // Rutas
-app.get('/products', async (req, res) => {
+
+
+// Ruta para agregar un nuevo producto
+app.post('/products', async (req, res) => {
     try {
-        const products = await Product.find();
-        res.json(products);
+        const { name, category, price, description, imageUrl } = req.body;
+        const product = new Product({ name, category, price, description, imageUrl });
+        await product.save();
+        res.send('Product added');
     } catch (error) {
-        res.status(500).send('Error al obtener los productos');
+        console.error('Error al agregar producto:', error);
+        res.status(500).send('Error al agregar producto');
     }
 });
 
+
+// Ruta para agregar un nuevo usuario
 app.post('/register', async (req, res) => {
     try {
         const { username, password, email } = req.body;
