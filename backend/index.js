@@ -80,6 +80,20 @@ app.post('/register', async (req, res) => {
     }
 });
 
+
+
+// Ruta para obtener todos los usuarios
+app.get('/register', async (req, res) => {
+    try {
+        const register = await Register.find();
+        res.json(register);
+    } catch (error) {
+        console.error('Error al obtener productos:', error);
+        res.status(500).send('Error al obtener productos');
+    }
+});
+
+
 app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
