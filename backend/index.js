@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 // Conexión a la base de datos
-mongoose.connect('mongodb://localhost:27017/ecommerce', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/ecommerce');
 
 // Modelos
 const Product = mongoose.model('Product', new mongoose.Schema({
@@ -41,6 +41,7 @@ app.post('/register', async (req, res) => {
     const user = new User({ username, password: hashedPassword, email });
     await user.save();
     res.send('User registered');
+    res.send('Página de registro');
 });
 
 app.post('/login', async (req, res) => {
@@ -53,4 +54,6 @@ app.post('/login', async (req, res) => {
     res.json({ token });
 });
 
-app.listen(3000, () => console.log('Server started on port 3000'));
+app.listen(port, () => {
+    console.log(`Servidor escuchando en http://localhost:${port}`);
+});
